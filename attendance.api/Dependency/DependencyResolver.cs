@@ -6,6 +6,7 @@ using attendance.objects.Contracts.Commands.User;
 using attendance.objects.Contracts.Data;
 using Autofac;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,18 +17,25 @@ namespace attendance.api.Dependency
     {
         public static void Register(this ContainerBuilder builder)
         {
+            var assemblyFiles = GetAssemblyFiles();
+
             builder.RegisterDatabase();
-            builder.RegisterRepositories();
-            builder.RegisterBusinesses();
+            builder.RegisterRepositories(assemblyFiles);
+            builder.RegisterBusinesses(assemblyFiles);
+        }
+
+        private static IEnumerable<string> GetAssemblyFiles()
+        {
+            return Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
         }
 
         private static void RegisterDatabase(this ContainerBuilder builder)
         {
         }
 
-        private static void RegisterRepositories(this ContainerBuilder builder)
+        private static void RegisterRepositories(this ContainerBuilder builder, IEnumerable<string> files)
         {
-            var assemblies = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly)
+            var assemblies = files
                    .Where(filePath => Path.GetFileName(filePath).EndsWith("data.dll"))
                    .Select(Assembly.LoadFrom);
 
@@ -36,9 +44,9 @@ namespace attendance.api.Dependency
                 .InstancePerLifetimeScope();
         }
 
-        private static void RegisterBusinesses(this ContainerBuilder builder)
+        private static void RegisterBusinesses(this ContainerBuilder builder, IEnumerable<string> files)
         {
-            var assemblies = Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly)
+            var assemblies = files
                    .Where(filePath => Path.GetFileName(filePath).EndsWith("business.dll"))
                    .Select(Assembly.LoadFrom);
 
