@@ -1,8 +1,5 @@
 ﻿using attendance.objects.Contracts.Commands.User;
 using attendance.objects.Contracts.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace attendance.business.Commands.User
 {

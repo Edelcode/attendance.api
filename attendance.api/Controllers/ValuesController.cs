@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using attendance.objects.Contracts.Business;
 using Microsoft.AspNetCore.Mvc;
 
 namespace attendance.api.Controllers
@@ -10,10 +11,17 @@ namespace attendance.api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IUserBusiness _userBusiness;
+
+        public ValuesController(IUserBusiness userBusiness)
+        {
+            _userBusiness = userBusiness;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+            var test = _userBusiness.Get(1);
             return new string[] { "value1", "value2" };
         }
 
