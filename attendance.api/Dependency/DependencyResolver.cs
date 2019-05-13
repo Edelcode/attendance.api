@@ -1,10 +1,4 @@
-﻿using attendance.business.Business;
-using attendance.business.Commands.User;
-using attendance.data;
-using attendance.objects.Contracts.Business;
-using attendance.objects.Contracts.Commands.User;
-using attendance.objects.Contracts.Data;
-using Autofac;
+﻿using Autofac;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,30 +18,29 @@ namespace attendance.api.Dependency
             builder.RegisterBusinesses(assemblyFiles);
         }
 
-        private static IEnumerable<string> GetAssemblyFiles()
-        {
-            return Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
-        }
-
         private static void RegisterDatabase(this ContainerBuilder builder)
         {
         }
 
         private static void RegisterRepositories(this ContainerBuilder builder, IEnumerable<string> files)
         {
-            var assemblies = files
-                   .Where(filePath => Path.GetFileName(filePath).Equals("attendance.data.dll"))
-                   .Select(Assembly.LoadFrom);
-
-            builder.RegisterAssemblyTypes(assemblies.ToArray())
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
+            builder.Register(files, "attendance.data.dll");
         }
 
         private static void RegisterBusinesses(this ContainerBuilder builder, IEnumerable<string> files)
         {
+            builder.Register(files, "attendance.business.dll");
+        }
+
+        private static IEnumerable<string> GetAssemblyFiles()
+        {
+            return Directory.EnumerateFiles(AppDomain.CurrentDomain.BaseDirectory, "*.dll", SearchOption.TopDirectoryOnly);
+        }
+
+        private static void Register(this ContainerBuilder builder, IEnumerable<string> files, string filename)
+        {
             var assemblies = files
-                   .Where(filePath => Path.GetFileName(filePath).EndsWith("attendance.business.dll"))
+                   .Where(filePath => Path.GetFileName(filePath).Equals(filename))
                    .Select(Assembly.LoadFrom);
 
             builder.RegisterAssemblyTypes(assemblies.ToArray())
