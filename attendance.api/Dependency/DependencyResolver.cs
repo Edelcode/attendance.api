@@ -36,7 +36,7 @@ namespace attendance.api.Dependency
         private static void RegisterRepositories(this ContainerBuilder builder, IEnumerable<string> files)
         {
             var assemblies = files
-                   .Where(filePath => Path.GetFileName(filePath).EndsWith("data.dll"))
+                   .Where(filePath => Path.GetFileName(filePath).Equals("attendance.data.dll"))
                    .Select(Assembly.LoadFrom);
 
             builder.RegisterAssemblyTypes(assemblies.ToArray())
@@ -47,7 +47,7 @@ namespace attendance.api.Dependency
         private static void RegisterBusinesses(this ContainerBuilder builder, IEnumerable<string> files)
         {
             var assemblies = files
-                   .Where(filePath => Path.GetFileName(filePath).EndsWith("business.dll"))
+                   .Where(filePath => Path.GetFileName(filePath).EndsWith("attendance.business.dll"))
                    .Select(Assembly.LoadFrom);
 
             builder.RegisterAssemblyTypes(assemblies.ToArray())
