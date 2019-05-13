@@ -1,6 +1,6 @@
 ﻿using attendance.objects.Models;
 
-namespace attendance.objects.Contracts.Commands
+namespace attendance.objects.Contracts.Commands.User
 {
     public interface ISaveUserCommand: ICommand<UserModel, UserModel>
     {

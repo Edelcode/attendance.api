@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\attendance.business\attendance.business.csproj" />
+    <ProjectReference Include="..\attendance.data\attendance.data.csproj" />
+    <ProjectReference Include="..\attendance.objects\attendance.objects.csproj" />
+  </ItemGroup>
+
 </Project>

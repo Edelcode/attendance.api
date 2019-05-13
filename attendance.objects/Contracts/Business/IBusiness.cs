@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace attendance.objects.Contracts.Data
+namespace attendance.objects.Contracts.Business
 {
-    public interface IRepository<TInput, TOutput>
+    public interface IBusiness<TInput, TOutput>
     {
         IEnumerable<TOutput> Find(TInput request);
         TOutput Get(int id);

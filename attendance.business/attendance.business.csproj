@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Business\" />
-    <Folder Include="Commands\" />
+    <ProjectReference Include="..\attendance.objects\attendance.objects.csproj" />
   </ItemGroup>
 
 </Project>
