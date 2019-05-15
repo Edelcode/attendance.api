@@ -3,7 +3,7 @@ using attendance.objects.Request;
 
 namespace attendance.objects.Contracts.Business
 {
-    public interface IUserBusiness : IBaseBusiness<FindUserRequest, UserModel>
+    public interface IHolidayBusiness: IBaseBusiness<FindHolidayRequest, HolidayModel>
     {
     }
 }

@@ -6,9 +6,9 @@ namespace attendance.api.Controllers
 {
     public class BaseController<TRequest, TModel> : ControllerBase
     {
-        protected IBusiness<TRequest, TModel> business;
+        protected IBaseBusiness<TRequest, TModel> business;
 
-        public BaseController(IBusiness<TRequest, TModel> business)
+        public BaseController(IBaseBusiness<TRequest, TModel> business)
         {
             this.business = business;
         }

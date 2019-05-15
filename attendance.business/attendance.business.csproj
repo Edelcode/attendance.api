@@ -8,4 +8,8 @@
     <ProjectReference Include="..\attendance.objects\attendance.objects.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Holiday\" />
+  </ItemGroup>
+
 </Project>

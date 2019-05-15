@@ -1,11 +1,12 @@
 ﻿using attendance.data.DbContext;
+using attendance.objects.Contracts.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace attendance.data
 {
-    public abstract class BaseRepository<TRequest, TModel>
+    public abstract class BaseRepository<TRequest, TModel>: IBaseRepository<TRequest, TModel>
     {
         protected AppDbContext DbContext { get; set; }
        
