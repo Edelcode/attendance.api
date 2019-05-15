@@ -1,5 +1,6 @@
 ﻿using attendance.objects.Contracts.Commands.User;
 using attendance.objects.Contracts.Data;
+using System.Threading.Tasks;
 
 namespace attendance.business.Commands.User
 {
@@ -12,9 +13,9 @@ namespace attendance.business.Commands.User
             _userRepository = userRepository;
         }
 
-        public bool Excecute(int id)
+        public async Task<bool> Excecute(int id)
         {
-            return _userRepository.Delete(id);
+            return await _userRepository.Delete(id);
         }
     }
 }

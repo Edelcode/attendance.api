@@ -3,6 +3,7 @@ using attendance.objects.Contracts.Data;
 using attendance.objects.Models;
 using attendance.objects.Request;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace attendance.business.Commands.User
 {
@@ -15,9 +16,9 @@ namespace attendance.business.Commands.User
             _userRepository = userRepository;
         }
 
-        public IEnumerable<UserModel> Excecute(FindUserRequest request)
+        public async Task<IEnumerable<UserModel>> Excecute(FindUserRequest request)
         {
-            return _userRepository.Find(request);
+            return await _userRepository.Find(request);
         }
     }
 }

@@ -20,6 +20,11 @@ namespace attendance.api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
 
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
             Configuration = builder.Build();
         }
 
@@ -33,7 +38,7 @@ namespace attendance.api
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.Register();
+            builder.Register(Configuration);
 
             ApplicationContainer = builder.Build();
             return new AutofacServiceProvider(ApplicationContainer);

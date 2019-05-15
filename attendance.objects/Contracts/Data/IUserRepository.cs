@@ -3,7 +3,7 @@ using attendance.objects.Request;
 
 namespace attendance.objects.Contracts.Data
 {
-    public interface IUserRepository : IRepository<FindUserRequest, UserModel>
+    public interface IUserRepository : IBaseRepository<FindUserRequest, UserModel>
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace attendance.objects.Contracts.Commands.User
 {
-    public interface IDeleteUserCommand : ICommand<int, bool>
+    public interface IDeleteUserCommand : IBaseCommand<int, bool>
     {
     }
 }

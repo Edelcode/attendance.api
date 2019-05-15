@@ -2,7 +2,7 @@
 
 namespace attendance.objects.Contracts.Commands.User
 {
-    public interface IGetUserCommand : ICommand<int, UserModel>
+    public interface IGetUserCommand : IBaseCommand<int, UserModel>
     {
     }
 }

@@ -1,6 +1,7 @@
 ﻿using attendance.objects.Contracts.Commands.User;
 using attendance.objects.Contracts.Data;
 using attendance.objects.Models;
+using System.Threading.Tasks;
 
 namespace attendance.business.Commands.User
 {
@@ -13,9 +14,9 @@ namespace attendance.business.Commands.User
             _userRepository = userRepository;
         }
 
-        public UserModel Excecute(UserModel model)
+        public async Task<UserModel> Excecute(UserModel model)
         {
-            return _userRepository.Save(model);
+            return await _userRepository.Save(model);
         }
     }
 }

@@ -1,31 +1,31 @@
-﻿using attendance.objects.Contracts.Data;
+﻿using attendance.data.DbContext;
+using attendance.objects.Contracts.Data;
 using attendance.objects.Models;
 using attendance.objects.Request;
-using System;
-using System.Collections.Generic;
 
 namespace attendance.data
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<FindUserRequest, UserModel>, IUserRepository
     {
-        public bool Delete(int id)
+        #region PRIVATE FIELDS
+
+        private const string FindUserSpName = "attendance.GetUsers";
+        private const string GetUserSpName = "attendance.GetUser";
+        private const string SaveUserSpName = "attendance.SaveUser";
+        private const string DeleteUserSpName = "attendance.DeleteUser";
+
+        #endregion
+
+        public UserRepository(AppDbContext appDbContext) : base(appDbContext)
         {
-            throw new NotImplementedException();
         }
 
-        public IEnumerable<UserModel> Find(FindUserRequest request)
+        protected override void InitRepository()
         {
-            throw new NotImplementedException();
-        }
-
-        public UserModel Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserModel Save(UserModel model)
-        {
-            throw new NotImplementedException();
+            FindSpName = FindUserSpName;
+            GetSpName = GetUserSpName;
+            SaveSpName = SaveUserSpName;
+            DeleteSpName = DeleteUserSpName;
         }
     }
 }

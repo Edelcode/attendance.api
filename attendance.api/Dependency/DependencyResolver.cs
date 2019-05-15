@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using attendance.data.DbContext;
+using Autofac;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,17 +11,19 @@ namespace attendance.api.Dependency
 {
     public static class DependencyResolver
     {
-        public static void Register(this ContainerBuilder builder)
+        public static void Register(this ContainerBuilder builder, IConfiguration configuration)
         {
             var assemblyFiles = GetAssemblyFiles();
 
-            builder.RegisterDatabase();
+            builder.RegisterDatabase(configuration);
             builder.RegisterRepositories(assemblyFiles);
             builder.RegisterBusinesses(assemblyFiles);
         }
 
-        private static void RegisterDatabase(this ContainerBuilder builder)
+        private static void RegisterDatabase(this ContainerBuilder builder, IConfiguration configuration)
         {
+            var connectionString = configuration["AppSettings:ConnectionString"];
+            builder.Register(d => new AppDbContext(connectionString)).InstancePerLifetimeScope();
         }
 
         private static void RegisterRepositories(this ContainerBuilder builder, IEnumerable<string> files)
